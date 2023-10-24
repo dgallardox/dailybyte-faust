@@ -2,15 +2,13 @@ import { gql } from '@apollo/client';
 import * as MENUS from '../constants/menus';
 import { BlogInfoFragment } from '../fragments/GeneralSettings';
 import {
-  Header,
-  Footer,
   Main,
   Container,
   EntryHeader,
   NavigationMenu,
   Post,
   FeaturedImage,
-  SEO,
+  Layout
 } from '../components';
 
 export default function Component(props) {
@@ -22,30 +20,30 @@ export default function Component(props) {
 
   return (
     <>
-      <SEO title={siteTitle} description={siteDescription} />
-      <Header
-        title={siteTitle}
-        description={siteDescription}
-        menuItems={primaryMenu}
-      />
-      <Main>
-        <>
-          <EntryHeader title={`Category: ${name}`} />
-          <Container>
-            {posts.edges.map((post) => (
-              <Post
-                title={post.node.title}
-                content={post.node.content}
-                date={post.node.date}
-                author={post.node.author?.node.name}
-                uri={post.node.uri}
-                featuredImage={post.node.featuredImage?.node}
-              />
-            ))}
-          </Container>
-        </>
-      </Main>
-      <Footer title={siteTitle} menuItems={footerMenu} />
+      <Layout
+        siteTitle={siteTitle}
+        siteDescription={siteDescription}
+        primaryMenu={primaryMenu}
+        footerMenu={footerMenu}
+      >
+        <Main>
+          <>
+            <EntryHeader title={`Category: ${name}`} />
+            <Container>
+              {posts.edges.map((post) => (
+                <Post
+                  title={post.node.title}
+                  content={post.node.content}
+                  date={post.node.date}
+                  author={post.node.author?.node.name}
+                  uri={post.node.uri}
+                  featuredImage={post.node.featuredImage?.node}
+                />
+              ))}
+            </Container>
+          </>
+        </Main>
+      </Layout>
     </>
   );
 }

@@ -1,0 +1,8 @@
+.component {
+  color: var(--wpe--color--white);
+  background-color: var(--wpe--color--black);
+  padding: 0.5rem 0.8rem !important;
+  position: relative;
+  margin: 0.5rem !important;
+  z-index: 1;
+}/*# sourceMappingURL=SkipNavigationLink.module.css.map */

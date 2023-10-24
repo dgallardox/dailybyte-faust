@@ -2,19 +2,17 @@ import { gql } from '@apollo/client';
 import * as MENUS from '../constants/menus';
 import { BlogInfoFragment } from '../fragments/GeneralSettings';
 import {
-  Header,
-  Footer,
   Main,
   Container,
   EntryHeader,
   NavigationMenu,
   ContentWrapper,
   FeaturedImage,
-  SEO,
+  Layout
 } from '../components';
 
 export default function Component(props) {
-  // Loading state for previews
+
   if (props.loading) {
     return <>Loading...</>;
   }
@@ -27,30 +25,26 @@ export default function Component(props) {
 
   return (
     <>
-      <SEO
-        title={siteTitle}
-        description={siteDescription}
-        imageUrl={featuredImage?.node?.sourceUrl}
-      />
-      <Header
-        title={siteTitle}
-        description={siteDescription}
-        menuItems={primaryMenu}
-      />
-      <Main>
-        <>
-          <EntryHeader
-            title={title}
-            image={featuredImage?.node}
-            date={date}
-            author={author?.node?.name}
-          />
-          <Container>
-            <ContentWrapper content={content} />
-          </Container>
-        </>
-      </Main>
-      <Footer title={siteTitle} menuItems={footerMenu} />
+      <Layout
+        siteTitle={siteTitle}
+        siteDescription={siteDescription}
+        primaryMenu={primaryMenu}
+        footerMenu={footerMenu}
+      >
+        <Main>
+          <>
+            <EntryHeader
+              title={title}
+              image={featuredImage?.node}
+              date={date}
+              author={author?.node?.name}
+            />
+            <Container>
+              <ContentWrapper content={content} />
+            </Container>
+          </>
+        </Main>
+      </Layout>
     </>
   );
 }

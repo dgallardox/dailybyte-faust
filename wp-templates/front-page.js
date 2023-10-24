@@ -1,17 +1,17 @@
+import React from 'react';
 import { useQuery, gql } from '@apollo/client';
 import * as MENUS from '../constants/menus';
 import { BlogInfoFragment } from '../fragments/GeneralSettings';
 import {
-  Header,
-  Footer,
   Main,
   Container,
   NavigationMenu,
   Hero,
-  SEO,
+  Layout
 } from '../components';
 
 export default function Component() {
+
   const { data } = useQuery(Component.query, {
     variables: Component.variables(),
   });
@@ -23,22 +23,22 @@ export default function Component() {
 
   return (
     <>
-      <SEO title={siteTitle} description={siteDescription} />
-      <Header
-        title={siteTitle}
-        description={siteDescription}
-        menuItems={primaryMenu}
-      />
-      <Main>
-        <Container>
-          <Hero title={'Front Page'} />
-          <div className="text-center">
-            <p>This page is utilizing the "front-page" WordPress template.</p>
-            <code>wp-templates/front-page.js</code>
-          </div>
-        </Container>
-      </Main>
-      <Footer title={siteTitle} menuItems={footerMenu} />
+      <Layout
+        siteTitle={siteTitle}
+        siteDescription={siteDescription}
+        primaryMenu={primaryMenu}
+        footerMenu={footerMenu}
+      >
+        <Main>
+          <Container>
+            <Hero title={"Front Page"} />
+            <div className='text-center'>
+              <p>This page is utilizing the "front-page" WordPress template.</p>
+              <code>wp-templates/front-page.js</code>
+            </div>
+          </Container>
+        </Main>
+      </Layout>
     </>
   );
 }
