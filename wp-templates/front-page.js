@@ -16,10 +16,14 @@ export default function Component() {
     variables: Component.variables(),
   });
 
+  console.log(data?.posts.nodes);
+
   const { title: siteTitle, description: siteDescription } =
     data?.generalSettings;
   const primaryMenu = data?.headerMenuItems?.nodes ?? [];
   const footerMenu = data?.footerMenuItems?.nodes ?? [];
+
+  const posts = data?.posts.nodes ?? [];
 
   return (
     <>
@@ -29,7 +33,7 @@ export default function Component() {
         primaryMenu={primaryMenu}
         footerMenu={footerMenu}
       >
-        <Main>
+        {/* <Main>
           <Container>
             <Hero title={"Front Page"} />
             <div className='text-center'>
@@ -37,7 +41,14 @@ export default function Component() {
               <code>wp-templates/front-page.js</code>
             </div>
           </Container>
-        </Main>
+        </Main> */}
+
+        {posts.map((post) => (
+          <>
+            <div>{post.title}</div>
+            <div dangerouslySetInnerHTML={{ __html: post.excerpt }} />
+          </>
+        ))}
       </Layout>
     </>
   );
@@ -50,6 +61,14 @@ Component.query = gql`
     $headerLocation: MenuLocationEnum
     $footerLocation: MenuLocationEnum
   ) {
+    posts {
+      nodes {
+        content
+        excerpt
+        title
+        uri
+      }
+    }
     generalSettings {
       ...BlogInfoFragment
     }

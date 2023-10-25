@@ -13,6 +13,8 @@ import {
 
 export default function Component(props) {
 
+  console.log(props)
+
   if (props.loading) {
     return <>Loading...</>;
   }
